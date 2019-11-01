@@ -3,9 +3,6 @@ package com.example.das_challenge_2.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.das_challenge_2.R
 import kotlinx.android.synthetic.main.activity_main.*
