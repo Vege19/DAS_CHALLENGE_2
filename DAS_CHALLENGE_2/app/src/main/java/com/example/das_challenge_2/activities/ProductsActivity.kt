@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.das_challenge_2.R
 import com.example.das_challenge_2.models.ProductModel
+import com.example.das_challenge_2.utils.Constants
 import com.example.das_challenge_2.utils.showToast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,10 +19,14 @@ class ProductsActivity : AppCompatActivity() {
 
     private var products: MutableList<ProductModel> = mutableListOf()
     private lateinit var adapter: ProductAdapter
+    private var category: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler_category)
+
+        //Fetch category id
+        category = intent.extras!!.getInt(Constants.CATEGORY_KEY)
 
         productList.layoutManager = LinearLayoutManager(this)
         adapter = ProductAdapter(products,this)
@@ -46,7 +51,10 @@ class ProductsActivity : AppCompatActivity() {
                 if(p0.exists()){
                     for (tmp in p0.children){
                         val product = tmp.getValue(ProductModel::class.java)
-                        products.add(product!!)
+                        //Add and show product according selected category
+                        if (product?.product_category == category) {
+                            products.add(product)
+                        }
                         adapter.notifyDataSetChanged()
                     }
                 }
