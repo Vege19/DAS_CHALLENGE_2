@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.ProductsActivity">
+        </activity>
+
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +23,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.MainActivity"></activity>
     </application>
 
 </manifest>

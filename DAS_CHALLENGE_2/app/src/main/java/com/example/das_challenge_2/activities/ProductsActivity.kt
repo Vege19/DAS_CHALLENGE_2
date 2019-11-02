@@ -19,8 +19,8 @@ class ProductsActivity : AppCompatActivity() {
     private var products: MutableList<ProductModel> = mutableListOf()
     private lateinit var adapter: ProductAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler_category)
 
         productList.layoutManager = LinearLayoutManager(this)
