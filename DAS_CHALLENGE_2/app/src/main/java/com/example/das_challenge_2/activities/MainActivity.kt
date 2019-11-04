@@ -1,17 +1,20 @@
 package com.example.das_challenge_2.activities
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import com.example.das_challenge_2.R
-import com.example.das_challenge_2.models.ProductModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.database.FirebaseDatabase
+import com.example.das_challenge_2.utils.showToast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private var codebarString: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,34 @@ class MainActivity : AppCompatActivity() {
 
     private fun setBottomNavigationView() {
         bottomNavigation.setupWithNavController(Navigation.findNavController(this, R.id.navHostFragment))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_actionbar, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.option_scan -> {
+                startActivityForResult(Intent(baseContext, ScannerActivity::class.java), 1)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                codebarString = data?.data.toString()
+                showToast(baseContext, codebarString)
+            }
+        }
+
     }
 
 }
