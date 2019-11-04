@@ -83,8 +83,6 @@ class CartAdapter(list: List<ProductModel>, context: Context): RecyclerView.Adap
         //Update cart total cost
         getFirebaseReference("cart").child("cart_total").setValue(total_cost)
 
-        notifyDataSetChanged()
-
     }
 
 }

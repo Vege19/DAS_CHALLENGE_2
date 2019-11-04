@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        activity?.title = "Categorías"
 
         //Configure recycler view
         categoriesRecyclerView.layoutManager = LinearLayoutManager(requireContext())

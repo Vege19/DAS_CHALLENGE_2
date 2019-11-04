@@ -18,5 +18,9 @@ class RecordFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_record, container, false)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.title = "Facturas"
+    }
 
 }

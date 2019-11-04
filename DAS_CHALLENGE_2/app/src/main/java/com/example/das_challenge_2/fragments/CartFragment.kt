@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.das_challenge_2.R
 import com.example.das_challenge_2.adapters.CartAdapter
 import com.example.das_challenge_2.models.ProductModel
+import com.example.das_challenge_2.utils.getFirebaseReference
 import com.example.das_challenge_2.utils.showToast
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_cart.*
@@ -29,6 +30,7 @@ class CartFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        activity?.title = "Carrito"
 
         cartRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = CartAdapter(products, requireContext())
@@ -62,6 +64,30 @@ class CartFragment : Fragment() {
                     }
                 }
             }
+        })
+
+        //Update list of products when these are removed
+        getFirebaseReference("cart").addChildEventListener(object: ChildEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onChildRemoved(p0: DataSnapshot) {
+                adapter.notifyDataSetChanged()
+            }
+
         })
     }
 
