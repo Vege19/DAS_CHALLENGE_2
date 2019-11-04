@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_app"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.das_challenge_2.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_cartFragment"
+            app:destination="@id/nav_cart" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_cart"
+        android:name="com.example.das_challenge_2.fragments.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart">
+
+        <action
+            android:id="@+id/action_cartFragment_to_recordFragment"
+            app:destination="@id/nav_record" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_record"
+        android:name="com.example.das_challenge_2.fragments.RecordFragment"
+        android:label="fragment_record"
+        tools:layout="@layout/fragment_record" />
+
+</navigation>

@@ -2,7 +2,14 @@ package com.example.das_challenge_2.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.navigation.Navigation
+import androidx.navigation.ui.setupWithNavController
 import com.example.das_challenge_2.R
+import com.example.das_challenge_2.models.ProductModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,23 +17,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Write a message to the database
-        /* val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("dasguia2")
+        setBottomNavigationView()
 
-        myRef.addValueEventListener(object: ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                Toast.makeText(baseContext, p0.message, Toast.LENGTH_SHORT).show()
-            }
+        /*val reference = FirebaseDatabase.getInstance().getReference("products")
+        val id = reference.push().key
 
-            override fun onDataChange(p0: DataSnapshot) {
-               val value = p0.getValue(String::class.java)
-                Toast.makeText(baseContext, value, Toast.LENGTH_SHORT).show()
-            }
+        reference.child(id!!).setValue(ProductModel(
+            id,
+            "XBOX ONE",
+            "Videogame console",
+            10,
+            3,
+            299.99,
+            "https://exitocol.vteximg.com.br/arquivos/ids/254567-1920-auto?width=1920&height=auto&aspect=true"))*/
 
-        })*/
-        //myRef.setValue("Hello, World!")*/
 
+    }
+
+    private fun setBottomNavigationView() {
+        bottomNavigation.setupWithNavController(Navigation.findNavController(this, R.id.navHostFragment))
     }
 
 }
