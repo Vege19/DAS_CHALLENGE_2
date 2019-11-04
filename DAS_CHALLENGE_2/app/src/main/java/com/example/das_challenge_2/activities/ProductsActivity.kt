@@ -1,11 +1,10 @@
 package com.example.das_challenge_2.activities
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.das_challenge_2.R
+import com.example.das_challenge_2.adapters.ProductAdapter
 import com.example.das_challenge_2.models.ProductModel
 import com.example.das_challenge_2.utils.Constants
 import com.example.das_challenge_2.utils.showToast
@@ -13,7 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.activity_recycler_category.*
+import kotlinx.android.synthetic.main.activity_products.*
 
 class ProductsActivity : AppCompatActivity() {
 
@@ -23,13 +22,13 @@ class ProductsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recycler_category)
+        setContentView(R.layout.activity_products)
 
         //Fetch category id
         category = intent.extras!!.getInt(Constants.CATEGORY_KEY)
 
         productList.layoutManager = LinearLayoutManager(this)
-        adapter = ProductAdapter(products,this)
+        adapter = ProductAdapter(products, this)
         productList.adapter = adapter
 
         loadProducts()

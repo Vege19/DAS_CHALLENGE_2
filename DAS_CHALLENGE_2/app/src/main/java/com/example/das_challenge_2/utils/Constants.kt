@@ -4,5 +4,5 @@ object Constants {
 
     //Serializable keys
     const val CATEGORY_KEY = "CATEGORY_KEY"
-
+    const val PRODUCT_KEY = "PRODUCT_KEY"
 }

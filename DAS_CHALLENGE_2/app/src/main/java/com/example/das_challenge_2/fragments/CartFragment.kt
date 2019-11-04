@@ -10,19 +10,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.das_challenge_2.R
 import com.example.das_challenge_2.adapters.CartAdapter
-import com.example.das_challenge_2.models.CartModel
-import com.example.das_challenge_2.models.SingleProductModel
+import com.example.das_challenge_2.models.ProductModel
 import com.example.das_challenge_2.utils.showToast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_cart.*
-import java.util.*
 
 class CartFragment : Fragment() {
 
-    private var products: MutableList<SingleProductModel> = mutableListOf()
+    private var products: MutableList<ProductModel> = mutableListOf()
     private lateinit var adapter: CartAdapter
 
     override fun onCreateView(
@@ -61,7 +59,7 @@ class CartFragment : Fragment() {
                 if (p0.exists()) {
                     for (tmp in p0.children) {
                         //Get categories and add them to the list
-                        val product = tmp.getValue(SingleProductModel::class.java)
+                        val product = tmp.getValue(ProductModel::class.java)
                         products.add(product!!)
                         //Update the list every time that data changes
                         adapter.notifyDataSetChanged()

@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.das_challenge_2.R
-import com.example.das_challenge_2.models.SingleProductModel
+import com.example.das_challenge_2.models.ProductModel
 import com.example.das_challenge_2.utils.setImageWithGlide
 import com.example.das_challenge_2.utils.showToast
 import kotlinx.android.synthetic.main.item_cart_product.view.*
 
-class CartAdapter(list: List<SingleProductModel>, context: Context): RecyclerView.Adapter<CartAdapter.ViewHolder>() {
+class CartAdapter(list: List<ProductModel>, context: Context): RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
-    private var cartProducts: List<SingleProductModel> = mutableListOf()
+    private var cartProducts: List<ProductModel> = mutableListOf()
     private lateinit var context: Context
 
     init {
@@ -33,11 +33,11 @@ class CartAdapter(list: List<SingleProductModel>, context: Context): RecyclerVie
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val singleProduct = cartProducts[position]
+        val product = cartProducts[position]
 
-        holder.name.text = singleProduct.single_product_name
-        holder.price.text = "$${singleProduct.single_product_price}"
-        holder.image.setImageWithGlide(context, singleProduct.single_product_image)
+        holder.name.text = product.product_name
+        holder.price.text = "$${product.product_price}"
+        holder.image.setImageWithGlide(context, product.product_image)
         holder.remove.setOnClickListener {
             showToast(context, "Removed")
         }
