@@ -3,7 +3,8 @@ package com.example.das_challenge_2.models
 import java.io.Serializable
 
 data class ProductModel(
-    val product_id: String = "",
+    var product_id: String = "",
+    var product_cart_id: String = "",
     val product_name: String = "",
     val product_description: String = "",
     val product_stock: Int = 0,

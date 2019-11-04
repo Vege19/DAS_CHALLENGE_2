@@ -51,8 +51,6 @@ class ProductDetailActivity : AppCompatActivity() {
 
         })
 
-
-
         showContent()
 
         addToCartFab.setOnClickListener {
@@ -111,7 +109,8 @@ class ProductDetailActivity : AppCompatActivity() {
         //Add product quantity times
         for (i in 1..quantity) {
             val cartProductId = cartProductsReference.push().key
-            cartProductsReference.child(cartProductId!!).setValue(product)
+            product.product_cart_id = cartProductId!!
+            cartProductsReference.child(cartProductId).setValue(product)
             cartTotal += product.product_price
         }
         Log.d("FirebaseDebug", "$cartTotal")
