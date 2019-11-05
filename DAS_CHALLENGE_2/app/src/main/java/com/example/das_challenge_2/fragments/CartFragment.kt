@@ -16,6 +16,12 @@ import com.example.das_challenge_2.utils.showToast
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_cart.*
 import androidx.appcompat.widget.Toolbar;
+import com.example.das_challenge_2.models.BillModel
+import com.example.das_challenge_2.utils.getDateTime
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.android.synthetic.main.bottom_sheet.view.*
+import kotlinx.android.synthetic.main.sheet_input_name.view.*
+import java.time.LocalDateTime
 
 class CartFragment : Fragment() {
 
@@ -23,7 +29,6 @@ class CartFragment : Fragment() {
     private lateinit var adapter: CartAdapter
     private var codebarString: String = ""
     private var cartTotal = 0.0
-    private var stock = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +60,7 @@ class CartFragment : Fragment() {
 
         loadCartProducts()
         loadTotalCost()
+        buyCheckout()
 
     }
 
@@ -164,7 +170,6 @@ class CartFragment : Fragment() {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 codebarString = data?.data.toString()
-                showToast(requireContext(), codebarString)
                 foundProduct()
             }
         }
@@ -187,6 +192,9 @@ class CartFragment : Fragment() {
                         //Log.d("Debug", "\nFirebaseProductId: ${product?.product_id}\nBarcodeId: $codebarString")
                         if (product?.product_id == codebarString) {
                             addFoundProductToCart(product)
+                        } else {
+                            showToast(requireContext(),"Producto no encontrado.")
+                            break
                         }
                     }
                 }
@@ -204,6 +212,49 @@ class CartFragment : Fragment() {
         getFirebaseReference("cart/cart_total").setValue(cartTotal + product.product_price)
         //Update product stock
         getFirebaseReference("products/${product.product_id}/product_stock").setValue(product.product_stock - 1)
+    }
+
+    private fun buyCheckout() {
+        //Validate if there is at least 1 element in cart
+        buyBtn.setOnClickListener {
+            if (cartTotal <= 0) {
+                showToast(requireContext(), "No se encuentra ningún producto")
+
+            } else {
+                showBottomSheet()
+            }
+        }
+    }
+
+    private fun showBottomSheet() {
+        //Build dialog
+        val bottomSheet = BottomSheetDialog(requireContext())
+        val bottomSheetView = LayoutInflater.from(requireContext()).inflate(R.layout.sheet_input_name, null)
+        bottomSheet.setContentView(bottomSheetView)
+        //Bottom sheet events
+        bottomSheet.show()
+        bottomSheetView.closeBottomSheetBtn2.setOnClickListener { bottomSheet.dismiss() }
+        bottomSheetView.makeBillBtn.setOnClickListener {
+            val billReference = getFirebaseReference("bills")
+            //Building bill
+            val billId = billReference.push().key
+            val name = bottomSheetView.inputNameTxt.text.toString()
+
+            if (name.isNotEmpty()) {
+                val bill = BillModel(billId!!, getDateTime(), name, products, cartTotal)
+                //Upload bill to fire base
+                billReference.child(billId).setValue(bill)
+                //Remove cart children
+                for (tmp in products) {
+                    getFirebaseReference("cart/cart_products/${tmp.product_cart_id}").removeValue()
+                }
+                //Update cart total
+                getFirebaseReference("cart/cart_total").setValue(0)
+                bottomSheet.dismiss()
+            } else {
+                bottomSheetView.inputNameTxt.error = "Campo vacío."
+            }
+        }
     }
 
 }

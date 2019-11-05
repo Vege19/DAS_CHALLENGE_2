@@ -82,7 +82,19 @@ class CartAdapter(list: List<ProductModel>, context: Context): RecyclerView.Adap
         //Update cart total cost
         getFirebaseReference("cart").child("cart_total").setValue(total_cost)
         //Update product stock
-        getFirebaseReference("products/${product.product_id}/product_stock").setValue(product.product_stock + 1)
+        getFirebaseReference("products/${product.product_id}/product_stock").addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                showToast(context, p0.message)
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                if (p0.exists()) {
+                    val stock = p0.getValue(Int::class.java)!!
+                    getFirebaseReference("products/${product.product_id}/product_stock").setValue(stock + 1)
+                }
+            }
+
+        })
 
     }
 

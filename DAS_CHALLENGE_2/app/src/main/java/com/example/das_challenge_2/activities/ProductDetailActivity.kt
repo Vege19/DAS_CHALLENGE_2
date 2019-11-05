@@ -16,6 +16,7 @@ import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import kotlinx.android.synthetic.main.bottom_sheet.view.*
 import kotlinx.android.synthetic.main.fragment_cart.*
+import kotlinx.android.synthetic.main.sheet_input_name.view.*
 
 class ProductDetailActivity : AppCompatActivity() {
 
@@ -87,6 +88,7 @@ class ProductDetailActivity : AppCompatActivity() {
         bottomSheet.setContentView(bottomSheetView)
         //Bottom sheet events
         bottomSheet.show()
+        bottomSheetView.closeBottomSheetBtn.setOnClickListener { bottomSheet.dismiss() }
         bottomSheetView.addToCartBtn.setOnClickListener {
             //Save quantity
             quantity = bottomSheetView.productQuantityTxt.text.trim().toString().toInt()
