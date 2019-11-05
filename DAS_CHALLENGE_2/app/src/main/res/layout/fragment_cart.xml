@@ -6,13 +6,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.CartFragment">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/cartAppBarLayout"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/cartToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorPrimary"
+            app:title="Carrito"
+            app:titleTextColor="@android:color/white"
+            app:menu="@menu/menu_actionbar"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cartAppBarLayout"
         app:layout_constraintBottom_toTopOf="@id/buyContainer" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
