@@ -1,5 +1,4 @@
 package com.example.das_challenge_2.models
-
 import java.io.Serializable
 
 data class ProductModel(
