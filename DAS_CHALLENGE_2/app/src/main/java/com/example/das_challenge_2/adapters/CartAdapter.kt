@@ -60,7 +60,7 @@ class CartAdapter(list: List<ProductModel>, context: Context): RecyclerView.Adap
         holder.price.text = "$${product.product_price}"
         holder.image.setImageWithGlide(context, product.product_image)
         holder.remove.setOnClickListener {
-            removeProduct(product.product_cart_id, product.product_price)
+            removeProduct(product)
             showToast(context, "Removed")
         }
 
@@ -73,15 +73,16 @@ class CartAdapter(list: List<ProductModel>, context: Context): RecyclerView.Adap
         val price = view.cartProductPriceTxt
     }
 
-    private fun removeProduct(productKey: String, price: Double) {
+    private fun removeProduct(product: ProductModel) {
         Log.d("Firebasedebug", "i cost" + total_cost.toString())
-        total_cost -= price
+        total_cost -= product.product_price
         Log.d("Firebasedebug", "f cost" + total_cost.toString())
-
         //Remove product
-        getFirebaseReference("cart/cart_products").child(productKey).removeValue()
+        getFirebaseReference("cart/cart_products").child(product.product_cart_id).removeValue()
         //Update cart total cost
         getFirebaseReference("cart").child("cart_total").setValue(total_cost)
+        //Update product stock
+        getFirebaseReference("products/${product.product_id}/product_stock").setValue(product.product_stock + 1)
 
     }
 

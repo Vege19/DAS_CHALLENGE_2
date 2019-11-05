@@ -49,18 +49,6 @@ class CartFragment : Fragment() {
             }
         })
 
-        //Getting product stock
-        getFirebaseReference("products/$codebarString/product_stock").addValueEventListener(object: ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                showToast(requireContext(), p0.message)
-            }
-            override fun onDataChange(p0: DataSnapshot) {
-                if (p0.exists()) {
-                    stock = (p0.getValue(Int::class.java)!!)
-                }
-            }
-        })
-
         cartRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = CartAdapter(products, requireContext())
         cartRecyclerView.adapter = adapter
@@ -186,7 +174,7 @@ class CartFragment : Fragment() {
     private fun foundProduct() {
         val productsReference = getFirebaseReference("products")
 
-        productsReference.addValueEventListener(object: ValueEventListener {
+        productsReference.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 showToast(requireContext(), p0.message)
             }
@@ -205,8 +193,6 @@ class CartFragment : Fragment() {
             }
         })
 
-        getFirebaseReference("products/$codebarString/product_stock").setValue(stock)
-
     }
 
     private fun addFoundProductToCart(product: ProductModel) {
@@ -216,6 +202,8 @@ class CartFragment : Fragment() {
         cartProductsReference.child(cartProductId).setValue(product)
         //Update price
         getFirebaseReference("cart/cart_total").setValue(cartTotal + product.product_price)
+        //Update product stock
+        getFirebaseReference("products/${product.product_id}/product_stock").setValue(product.product_stock - 1)
     }
 
 }
