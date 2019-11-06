@@ -19,13 +19,14 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.das_challenge_2.models.BillModel
 import com.example.das_challenge_2.utils.getDateTime
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.bottom_sheet.view.*
 import kotlinx.android.synthetic.main.sheet_input_name.view.*
-import java.time.LocalDateTime
+import kotlinx.coroutines.delay
+import java.util.*
 
 class CartFragment : Fragment() {
 
     private var products: MutableList<ProductModel> = mutableListOf()
+    private var findProducts: MutableList<ProductModel> = mutableListOf()
     private lateinit var adapter: CartAdapter
     private var codebarString: String = ""
     private var cartTotal = 0.0
@@ -82,6 +83,7 @@ class CartFragment : Fragment() {
                         //Get categories and add them to the list
                         val product = tmp.getValue(ProductModel::class.java)
                         products.add(product!!)
+
                         //Update the list every time that data changes
                         adapter.notifyDataSetChanged()
                     }
@@ -170,13 +172,14 @@ class CartFragment : Fragment() {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 codebarString = data?.data.toString()
-                foundProduct()
+                Log.d("debug", codebarString)
+                findProduct(codebarString)
             }
         }
 
     }
 
-    private fun foundProduct() {
+    private fun findProduct(codebar: String) {
         val productsReference = getFirebaseReference("products")
 
         productsReference.addListenerForSingleValueEvent(object: ValueEventListener {
@@ -185,19 +188,24 @@ class CartFragment : Fragment() {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
+
                 if (p0.exists()) {
                     for (tmp in p0.children) {
                         //Find product according product id
                         val product = tmp.getValue(ProductModel::class.java)
-                        //Log.d("Debug", "\nFirebaseProductId: ${product?.product_id}\nBarcodeId: $codebarString")
-                        if (product?.product_id == codebarString) {
+                        Log.d("debug", product?.product_id)
+                        if (product!!.product_id == codebarString) {
                             addFoundProductToCart(product)
-                        } else {
-                            showToast(requireContext(),"Producto no encontrado.")
                             break
+                        } else {
+                            showToast(requireContext(), "No se encontró el producto.")
                         }
+
+                        //Log.d("Debug", "\nFirebaseProductId: ${product?.product_id}\nBarcodeId: $codebarString")
                     }
                 }
+
+
             }
         })
 
@@ -228,7 +236,7 @@ class CartFragment : Fragment() {
 
     private fun showBottomSheet() {
         //Build dialog
-        val bottomSheet = BottomSheetDialog(requireContext())
+        val bottomSheet = BottomSheetDialog(requireContext(), R.style.BottomSheetDialog)
         val bottomSheetView = LayoutInflater.from(requireContext()).inflate(R.layout.sheet_input_name, null)
         bottomSheet.setContentView(bottomSheetView)
         //Bottom sheet events

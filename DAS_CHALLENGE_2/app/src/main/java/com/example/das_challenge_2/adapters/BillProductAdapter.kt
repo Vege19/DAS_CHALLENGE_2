@@ -1,12 +1,15 @@
 package com.example.das_challenge_2.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.das_challenge_2.R
+import com.example.das_challenge_2.activities.ProductDetailActivity
 import com.example.das_challenge_2.models.ProductModel
+import com.example.das_challenge_2.utils.Constants
 import kotlinx.android.synthetic.main.item_bill_product.view.*
 
 class BillProductAdapter(products: List<ProductModel>, context: Context) : RecyclerView.Adapter<BillProductAdapter.ViewHolder>() {
@@ -32,7 +35,7 @@ class BillProductAdapter(products: List<ProductModel>, context: Context) : Recyc
         val product: ProductModel = products[position]
 
         holder.name_product.text = product.product_name
-        holder.price_product.text = product.product_price.toString()
+        holder.price_product.text = "$${product.product_price}"
 
     }
 
@@ -40,5 +43,6 @@ class BillProductAdapter(products: List<ProductModel>, context: Context) : Recyc
         val name_product = view.bill_ProductName
         val price_product = view.bill_PriceTxt
     }
+
 
 }

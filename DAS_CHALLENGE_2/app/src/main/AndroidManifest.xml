@@ -14,13 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activities.ScannerActivity"></activity>
+        <activity android:name=".activities.ScannerActivity" android:theme="@style/AppThemeNoActionBar" android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".activities.ProductDetailActivity"></activity>
+        <activity android:name=".activities.ProductDetailActivity" android:theme="@style/AppThemeNoActionBar"></activity>
 
-        <activity android:name=".activities.ProductsActivity" />
+        <activity android:name=".activities.ProductsActivity" android:theme="@style/AppThemeNoActionBar"/>
 
-        <activity android:name=".activities.BillDetailActivity"/>
+        <activity android:name=".activities.BillDetailActivity" android:theme="@style/AppThemeNoActionBar"/>
 
         <activity android:name=".activities.MainActivity"
             android:theme="@style/AppThemeNoActionBar">

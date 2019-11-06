@@ -20,8 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:background="@color/colorPrimary"
-            app:title="Categorías"
-            app:titleTextColor="@android:color/white"/>
+            app:title="Catálogo de productos"
+            app:titleTextColor="@color/colorAccent"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

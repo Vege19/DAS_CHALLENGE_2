@@ -7,78 +7,137 @@
     android:layout_height="match_parent"
     tools:context=".activities.BillDetailActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/billDetailAppBarLayout"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/billDetailToolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorPrimary"
+            app:title="Detalle de factura"
+            app:titleTextColor="@color/colorAccent"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/billDetailAppBarLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                app:cardCornerRadius="4dp">
+                app:cardCornerRadius="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="65dp">
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent">
 
                     <TextView
                         android:id="@+id/productDate"
+                        style="@style/TextAppearance.Compat.Notification.Title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="8dp"
                         android:maxLines="1"
+                        android:textColor="@android:color/white"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.954"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Produc Date: " />
+                        tools:text="Product Date" />
 
                     <TextView
                         android:id="@+id/nameClient"
+                        style="@style/TextAppearance.Compat.Notification.Title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
-                        android:layout_marginStart="16dp"
                         android:maxLines="1"
+                        android:textColor="@android:color/white"
+                        android:textSize="22sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/productDate"
+                        app:layout_constraintVertical_bias="1.0"
+                        tools:text="Product Client" />
+
+                    <TextView
+                        android:id="@+id/billDetailTotalTxt"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.954"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/productDate"
-                        app:layout_constraintVertical_bias="1.0"
-                        tools:text="To name: " />
+                        app:layout_constraintTop_toBottomOf="@id/nameClient"
+                        tools:text="Total de factura: $0.0"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="2dp"
+                        android:textAlignment="textEnd"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Lista de productos"
+                style="@style/TextAppearance.AppCompat.Title"
+                app:layout_constraintTop_toBottomOf="@id/cardView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textStyle="bold"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_prodct_detail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp">
-            </androidx.recyclerview.widget.RecyclerView>
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/textView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:paddingBottom="16dp"
+                android:clipToPadding="false"/>
 
-        </LinearLayout>
-    </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

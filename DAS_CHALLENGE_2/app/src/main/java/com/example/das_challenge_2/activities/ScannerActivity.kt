@@ -23,6 +23,7 @@ class ScannerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scanner)
+        toolbarConfig()
 
         //Build codebar scanner
         barcodeView.setFacing(CameraSource.CAMERA_FACING_BACK)
@@ -61,5 +62,12 @@ class ScannerActivity : AppCompatActivity() {
         super.onStop()
 
         mDisposable?.dispose()
+    }
+
+    private fun toolbarConfig() {
+        scannerToolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+        scannerToolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 }

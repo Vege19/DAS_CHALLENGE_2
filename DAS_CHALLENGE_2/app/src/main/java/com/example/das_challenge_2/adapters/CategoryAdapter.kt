@@ -40,10 +40,10 @@ class CategoryAdapter(list: List<CategoryModel>, context: Context): RecyclerView
         holder.image.setImageWithGlide(context, category.category_img)
         holder.itemView.setOnClickListener {
             when (category.category_id) {
-                1 -> intentToProducts(1)
-                2 -> intentToProducts(2)
-                3 -> intentToProducts(3)
-                4 -> intentToProducts(4)
+                1 -> intentToProducts(category)
+                2 -> intentToProducts(category)
+                3 -> intentToProducts(category)
+                else -> intentToProducts(category)
             }
         }
 
@@ -54,7 +54,7 @@ class CategoryAdapter(list: List<CategoryModel>, context: Context): RecyclerView
         val title = view.categoryNameTxt
     }
 
-    private fun intentToProducts(category: Int) {
+    private fun intentToProducts(category: CategoryModel) {
         val intent = Intent(context, ProductsActivity::class.java)
         intent.putExtra(Constants.CATEGORY_KEY, category)
         context.startActivity(intent)

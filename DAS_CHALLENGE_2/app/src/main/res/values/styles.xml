@@ -1,19 +1,40 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <!-- Base application theme. -->
-    <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeNoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorAccent</item>
+    </style>
+
+    <style name="ExpandedTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="CollapsedTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
+    </style>
+
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/shape_top_corner_background</item>
     </style>
 
 </resources>

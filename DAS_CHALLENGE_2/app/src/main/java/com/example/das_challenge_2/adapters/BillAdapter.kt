@@ -2,12 +2,15 @@ package com.example.das_challenge_2.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.das_challenge_2.R
+import com.example.das_challenge_2.activities.BillDetailActivity
 import com.example.das_challenge_2.models.BillModel
+import com.example.das_challenge_2.utils.Constants
 import kotlinx.android.synthetic.main.item_bill.view.*
 
 class BillAdapter(list: List<BillModel>, context: Context): RecyclerView.Adapter<BillAdapter.ViewHolder>() {
@@ -36,6 +39,9 @@ class BillAdapter(list: List<BillModel>, context: Context): RecyclerView.Adapter
         holder.name.text = "A nombre de: ${bill.bill_client}"
         holder.date.text = bill.bill_date
         holder.total.text = "Total: $${bill.bill_total}"
+        holder.itemView.setOnClickListener {
+            intentToBillDetails(bill)
+        }
 
     }
 
@@ -43,6 +49,11 @@ class BillAdapter(list: List<BillModel>, context: Context): RecyclerView.Adapter
         val name = view.billNameTxt
         val date = view.billDateTxt
         val total = view.billTotalTxt
+    }
 
+    private fun intentToBillDetails(bill: BillModel) {
+        val intent = Intent(context, BillDetailActivity::class.java)
+        intent.putExtra(Constants.BILL_KEY, bill)
+        context.startActivity(intent)
     }
 }

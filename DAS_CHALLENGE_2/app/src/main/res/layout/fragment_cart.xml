@@ -19,8 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:background="@color/colorPrimary"
-            app:title="Carrito"
-            app:titleTextColor="@android:color/white"
+            app:title="Factura"
+            app:titleTextColor="@color/colorAccent"
             app:menu="@menu/menu_actionbar"/>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -38,7 +38,7 @@
         android:id="@+id/buyContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,14 +57,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buyBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="REALIZAR COMPRA"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:textColor="@android:color/white"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

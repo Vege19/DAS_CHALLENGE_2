@@ -2,13 +2,16 @@ package com.example.das_challenge_2.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.das_challenge_2.R
+import com.example.das_challenge_2.activities.ProductDetailActivity
 import com.example.das_challenge_2.models.ProductModel
+import com.example.das_challenge_2.utils.Constants
 import com.example.das_challenge_2.utils.getFirebaseReference
 import com.example.das_challenge_2.utils.setImageWithGlide
 import com.example.das_challenge_2.utils.showToast

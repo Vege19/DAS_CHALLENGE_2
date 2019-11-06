@@ -43,36 +43,40 @@
 
         <EditText
             android:id="@+id/productQuantityTxt"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:autofillHints=""
+            android:background="@drawable/shape_edit_text_background"
             android:inputType="number"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:text="1"
             android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView1"
             app:layout_constraintTop_toBottomOf="@id/textView" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/addToCartBtn"
-            android:layout_width="0dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="@color/colorAccent"
-            android:drawableStart="@drawable/ic_shopping_cart"
             android:drawablePadding="8dp"
-            android:drawableTint="@android:color/white"
             android:padding="16dp"
-            android:textAlignment="textStart"
             android:text="AGREGAR AL CARRITO"
-            android:textColor="@android:color/white"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/productQuantityTxt" />
+            app:layout_constraintTop_toBottomOf="@id/productQuantityTxt"
+            app:rippleColor="#673AB7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,7 +6,6 @@
         android:id="@+id/option_scan"
         android:title="Escanear"
         android:icon="@drawable/ic_center_focus_weak"
-        android:iconTint="@android:color/white"
         app:showAsAction="ifRoom"/>
 
 </menu>

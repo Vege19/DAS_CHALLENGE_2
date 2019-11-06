@@ -44,11 +44,13 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="Category" />
+            tools:text="Category"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="-2"
+            android:shadowDy="2"
+            android:shadowRadius="1"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

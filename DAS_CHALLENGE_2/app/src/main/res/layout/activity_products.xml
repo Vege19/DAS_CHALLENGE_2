@@ -7,13 +7,31 @@
     android:layout_height="match_parent"
     tools:context=".adapters.ProductAdapter">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/productsAppBarLayout"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        android:background="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/productsToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:titleTextColor="@color/colorAccent"
+            app:title="Productos"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/productsAppBarLayout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

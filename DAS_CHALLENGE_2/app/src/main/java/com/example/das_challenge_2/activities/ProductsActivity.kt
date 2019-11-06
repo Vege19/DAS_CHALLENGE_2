@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.das_challenge_2.R
 import com.example.das_challenge_2.adapters.ProductAdapter
+import com.example.das_challenge_2.models.CategoryModel
 import com.example.das_challenge_2.models.ProductModel
 import com.example.das_challenge_2.utils.Constants
 import com.example.das_challenge_2.utils.showToast
@@ -20,16 +21,15 @@ class ProductsActivity : AppCompatActivity() {
 
     private var products: MutableList<ProductModel> = mutableListOf()
     private lateinit var adapter: ProductAdapter
-    private var category: Int = 0
-    private var actionBarTitle = ""
+    private lateinit var category: CategoryModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products)
-        //Fetch category id
-        category = intent.extras!!.getInt(Constants.CATEGORY_KEY)
 
-        setActionBarTitle()
+        //Fetch category id
+        category = intent.extras!!.getSerializable(Constants.CATEGORY_KEY) as CategoryModel
+        toolBarConfig()
 
         productList.layoutManager = LinearLayoutManager(this)
         adapter = ProductAdapter(products, this)
@@ -37,20 +37,6 @@ class ProductsActivity : AppCompatActivity() {
 
         loadProducts()
 
-    }
-
-    private fun setActionBarTitle() {
-        val myActionBar = supportActionBar
-        myActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        when (category) {
-            1 -> actionBarTitle = "Computadoras"
-            2 -> actionBarTitle = "Smartphones"
-            3 -> actionBarTitle = "Consolas"
-            4 -> actionBarTitle = "Accesorios"
-        }
-
-        title = actionBarTitle
     }
 
     private fun loadProducts(){
@@ -69,7 +55,7 @@ class ProductsActivity : AppCompatActivity() {
                     for (tmp in p0.children){
                         val product = tmp.getValue(ProductModel::class.java)
                         //Add and show product according selected category
-                        if (product?.product_category == category) {
+                        if (product?.product_category == category.category_id) {
                             products.add(product)
                         }
                         adapter.notifyDataSetChanged()
@@ -80,9 +66,12 @@ class ProductsActivity : AppCompatActivity() {
         })
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        finish()
-        return true
+    private fun toolBarConfig() {
+        productsToolbar.title = category.category_name
+        productsToolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+        productsToolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
 }

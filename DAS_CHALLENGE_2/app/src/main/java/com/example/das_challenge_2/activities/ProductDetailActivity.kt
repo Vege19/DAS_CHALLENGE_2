@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import com.example.das_challenge_2.R
 import com.example.das_challenge_2.models.ProductModel
 import com.example.das_challenge_2.utils.Constants
@@ -27,6 +28,7 @@ class ProductDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
+        toolbarConfig()
 
         title = "Detalles del producto"
         val myActionBar = supportActionBar
@@ -67,7 +69,7 @@ class ProductDetailActivity : AppCompatActivity() {
         //Details
         productDetailNameTxt.text = product.product_name
         productDetailDescTxt.text = product.product_description
-        productDetailPriceTxt.text = "$${product.product_price}"
+        productDetailCollapsingLayout.title = "$${product.product_price}"
         productDetailStockTxt.text = "Stock: ${product.product_stock}"
         //Set category according id
         var categoryString = ""
@@ -83,7 +85,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private fun showBottomSheet() {
         //Build dialog
-        val bottomSheet = BottomSheetDialog(this)
+        val bottomSheet = BottomSheetDialog(this, R.style.BottomSheetDialog)
         val bottomSheetView = LayoutInflater.from(this).inflate(R.layout.bottom_sheet, null)
         bottomSheet.setContentView(bottomSheetView)
         //Bottom sheet events
@@ -91,13 +93,18 @@ class ProductDetailActivity : AppCompatActivity() {
         bottomSheetView.closeBottomSheetBtn.setOnClickListener { bottomSheet.dismiss() }
         bottomSheetView.addToCartBtn.setOnClickListener {
             //Save quantity
-            quantity = bottomSheetView.productQuantityTxt.text.trim().toString().toInt()
+            val quantityStr = bottomSheetView.productQuantityTxt.text.toString().trim()
             //Validate if quantity is less or the same than product stock
-            if (quantity > product.product_stock) {
-                bottomSheetView.productQuantityTxt.error = "Error prro."
+            if (quantityStr.isNotEmpty()) {
+                quantity = quantityStr.toInt()
+                if (quantity > product.product_stock) {
+                    bottomSheetView.productQuantityTxt.error = "No hay suficientes unidades."
+                } else {
+                    addProductsToCart(quantity)
+                    bottomSheet.dismiss()
+                }
             } else {
-                addProductsToCart(quantity)
-                bottomSheet.dismiss()
+                bottomSheetView.productQuantityTxt.error = "Campo vacío."
             }
         }
     }
@@ -122,9 +129,12 @@ class ProductDetailActivity : AppCompatActivity() {
         cartReference.child("cart_total").setValue(cartTotal)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        finish()
-        return true
+    private fun toolbarConfig() {
+        productDetailToolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+        productDetailToolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
+
 
 }

@@ -39,13 +39,17 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:hint="Nombre"
+        android:background="@drawable/shape_edit_text_background"
+        android:padding="16dp"
         android:inputType="text"
         android:nextFocusDown="@id/makeBillBtn"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/makeBillBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:textColor="@color/colorAccent"
         android:text="FACTURAR"
         app:layout_constraintTop_toBottomOf="@id/inputNameTxt"
         app:layout_constraintStart_toStartOf="parent"
